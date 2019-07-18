@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>A simple map</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src='https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.js'></script>
+<link href='https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.css' rel='stylesheet' />
+
+
+<style>
+  body { margin:0; padding:0; }
+  #map { position:absolute; top:0; bottom:0; width:100%; }
+</style>
+</head>
+<body>
+
+<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-zoomslider/v0.7.0/L.Control.Zoomslider.js'></script>
+<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-zoomslider/v0.7.0/L.Control.Zoomslider.css' rel='stylesheet' />
+
+<style>
+/* Adjustments to account for mapbox.css box-sizing rules */
+.leaflet-control-zoomslider-knob { width:14px; height:6px; }
+.leaflet-container .leaflet-control-zoomslider-body {
+  -webkit-box-sizing:content-box;
+     -moz-box-sizing:content-box;
+          box-sizing:content-box;
+  }
+</style>
+
+<div id='map'></div>
+<script>
+L.mapbox.accessToken = 'pk.eyJ1IjoiaGlkYXlhdGh1bGxhbSIsImEiOiJjank4OWN2NWEwN2ZhM2NwMW9oMWhnejh2In0.Z3ugv_-vYihfNGOaHu-W9Q';
+var geojson = {
+  type: 'FeatureCollection',
+  features: [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-77.03238901390978,38.913188059745586]
+      },
+      "properties": {
+        "title": "Mapbox DC",
+        "description": "1714 14th St NW, Washington DC",
+        "marker-color": "#fc4353",
+        "marker-size": "large",
+        "marker-symbol": "star"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.414, 37.776]
+      },
+      "properties": {
+        "title": "Mapbox SF",
+        "description": "155 9th St, San Francisco",
+        "marker-color": "#fc4353",
+        "marker-size": "large",
+        "marker-symbol": "star-stroked"
+      }
+    }
+  ]
+};
+var map = L.mapbox.map('map')
+   .setView([37.8, -96], 4)
+  .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'))
+  .featureLayer.setGeoJSON(geojson);
+  L.control.zoomslider().addTo(map);
+</script>
+
+</body>
+</html>
+
